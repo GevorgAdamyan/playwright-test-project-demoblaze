@@ -36,8 +36,12 @@ playwright-test-project-demoblaze/
 ├── support/                     # Test utilities and configurations
 │   ├── helpers.ts              # Helper functions
 │   ├── types.ts                # TypeScript type definitions
-│   └── constants/
-│       └── Endpoints.ts        # API endpoint constants
+│   └── constants/              # Constants and configuration
+│       ├── endpoint.ts         # API endpoint constants
+│       ├── errors_and_messages.ts # Error messages and text constants
+│       ├── methods.ts          # HTTP method constants
+│       ├── test_data.ts        # Test data constants
+│       └── variables.ts        # General variable constants
 ├── tests/                       # Test specifications
 │   ├── auth.setup.ts           # Global authentication setup
 │   ├── API/                    # API test suites
@@ -57,8 +61,11 @@ playwright-test-project-demoblaze/
 ├── playwright-report/          # Generated test reports
 ├── test-results/              # Test execution artifacts
 ├── eslint.config.js           # ESLint configuration (relaxed)
-├── .prettierrc                # Prettier formatting rules
+├── .prettierrc                # Prettier formatting rules (main config)
+├── .prettierrc.json           # Prettier JSON configuration (alternative)
 ├── .prettierignore            # Prettier ignore patterns
+├── .gitignore                 # Git ignore rules
+├── .env                       # Environment variables (local)
 ├── tsconfig.json              # TypeScript configuration
 ├── playwright.config.ts       # Playwright configuration
 └── package.json              # Project dependencies and scripts
@@ -100,6 +107,24 @@ playwright-test-project-demoblaze/
    USERNAME=your_test_username
    PASSWORD=your_test_password
    ```
+
+## 📦 Dependencies Overview
+
+### Production Dependencies
+- **dotenv** (^17.2.3): Environment variable management
+- **prettier** (^3.6.2): Code formatting and style enforcement
+
+### Development Dependencies
+- **@playwright/test** (^1.56.0): Core Playwright testing framework
+- **@types/dotenv** (^6.1.1): TypeScript types for dotenv
+- **@types/node** (^24.7.2): TypeScript types for Node.js
+- **@typescript-eslint/eslint-plugin** (^8.8.0): ESLint rules for TypeScript
+- **@typescript-eslint/parser** (^8.8.0): TypeScript parser for ESLint
+- **depcheck** (^1.4.7): Unused dependency detection tool
+- **eslint** (^9.11.1): JavaScript/TypeScript linting utility
+- **eslint-config-prettier** (^9.1.0): ESLint config that disables formatting rules
+- **eslint-plugin-playwright** (^1.6.2): Playwright-specific ESLint rules
+- **typescript** (^5.6.2): TypeScript compiler and type checker
 
 ## 🧪 Running Tests
 
@@ -156,11 +181,11 @@ All test workflows require manual triggering via GitHub Actions:
 
 Code quality checks run automatically on every push and pull request:
 
-- ✅ **Prettier**: Code formatting validation
+- ✅ **Prettier**: Code formatting validation (dual config: .prettierrc + .prettierrc.json)
 - ✅ **ESLint**: Linting with relaxed rules (up to 50 warnings allowed)
-- ✅ **TypeScript**: Basic type checking
-- ✅ **Dependencies**: Unused package detection
-- ✅ **Security**: Vulnerability audit
+- ✅ **TypeScript**: Basic type checking with relaxed strictness
+- ✅ **Dependencies**: Unused package detection via depcheck
+- ✅ **Security**: Vulnerability audit via npm audit
 
 #### Manual Code Quality Commands
 
@@ -222,11 +247,22 @@ The project implements a global authentication setup:
 
 Automated code quality checks ensure consistent code standards:
 
-- **ESLint Configuration**: Relaxed rules prioritizing development velocity
-- **Prettier Integration**: Consistent code formatting across the project
-- **TypeScript Checking**: Basic type safety without strict enforcement
-- **GitHub Actions**: Automated quality gates on push/PR events
-- **Developer Friendly**: Non-blocking warnings with up to 50 warnings allowed
+- **ESLint Configuration**: Modern flat config with relaxed rules prioritizing development velocity
+- **Prettier Integration**: Dual configuration support (.prettierrc + .prettierrc.json)
+- **TypeScript Checking**: Relaxed type safety (strict: false) for easier development
+- **GitHub Actions**: Automated quality gates on push/PR events with non-blocking approach
+- **Developer Friendly**: Up to 50 warnings allowed, continue-on-error for most checks
+
+### Modular Project Organization
+
+The project follows a well-organized modular structure:
+
+- **Separation of Concerns**: Clear distinction between pages, API handlers, and utilities
+- **Constants Management**: Centralized constants in organized sub-modules for maintainability
+- **Helper Functions**: Reusable utility functions for common operations (encoding, ID generation, async iteration)
+- **Type Safety**: TypeScript interfaces and types for better development experience
+- **Configuration Files**: Multiple config files for different tools (ESLint, Prettier, TypeScript)
+- **Environment Management**: Local .env file support with proper gitignore handling
 
 ## 🔧 Configuration
 
@@ -254,10 +290,28 @@ Automated code quality checks ensure consistent code standards:
 
 ### Code Quality Configuration
 
-- **eslint.config.js**: Relaxed ESLint rules for development velocity
-- **.prettierrc**: Consistent formatting rules across the project
-- **tsconfig.json**: TypeScript configuration with relaxed strictness
-- **GitHub Secrets**: `TEST_USERNAME` and `TEST_PASSWORD` required for workflows
+- **eslint.config.js**: Modern ESLint flat config with relaxed rules for development velocity
+- **.prettierrc**: Main Prettier configuration file with comprehensive formatting rules
+- **.prettierrc.json**: Alternative JSON-based Prettier configuration
+- **.prettierignore**: Files and patterns excluded from formatting
+- **tsconfig.json**: TypeScript configuration with relaxed strictness (strict: false)
+- **depcheck**: Dependency checker for unused packages (included in devDependencies)
+- **GitHub Secrets**: `USERNAME` and `PASSWORD` required for workflows
+
+### Support Files Structure
+
+- **support/helpers.ts**: Utility functions including:
+  - `b64EncodeUnicode()`: Base64 encoding for Unicode strings
+  - `generateId()`: Random UUID-like ID generation
+  - `asyncForEach()`: Async iteration over arrays
+  - `getCurrentDateWithSlash()`: Current date formatting (DD/MM/YYYY)
+- **support/types.ts**: TypeScript interface definitions (ResponseBody, etc.)
+- **support/constants/**: Organized constants for better maintainability
+  - **endpoint.ts**: API endpoint paths (/login, /signup, /viewcart, /addtocart, etc.)
+  - **errors_and_messages.ts**: Application messages (error messages, success messages, validation text)
+  - **methods.ts**: HTTP method constants (GET, POST)
+  - **test_data.ts**: Test data constants and mock data for testing
+  - **variables.ts**: General application variables and configuration constants
 
 ## 🚦 Best Practices
 
@@ -292,6 +346,8 @@ Automated code quality checks ensure consistent code standards:
 - Address linting warnings gradually (up to 50 warnings allowed)
 - Use TypeScript for better code maintainability
 - Follow the relaxed ESLint rules for development velocity
+- **Prettier Configuration**: Project uses dual configuration (.prettierrc and .prettierrc.json) - both are valid
+- **Constants Organization**: Utilize organized constants from support/constants/ for maintainability
 
 ## 🐛 Debugging
 
