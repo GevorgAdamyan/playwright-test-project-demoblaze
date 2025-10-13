@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test';
 import BasePage from './BasePage';
-import { DELETE_ITEM } from '../support/constants/Endpoints';
+import { DELETE_ITEM } from '../support/constants/endpoint';
+import { POST } from '../support/constants/methods';
 
 export default class CartPage extends BasePage {
   private readonly itemsRow: string = 'tr.success';
@@ -21,7 +22,7 @@ export default class CartPage extends BasePage {
     const itemNames: string[] = [];
     const items = await this.page.$$(this.itemsRow);
     for (const item of items) {
-      const title = await item.$eval(this.itemTitle, (el) => el.textContent);
+      const title = await item.$eval(this.itemTitle, el => el.textContent);
       if (title) {
         itemNames.push(title);
       }
@@ -53,7 +54,7 @@ export default class CartPage extends BasePage {
     const deleteLinks = await this.getElements(this.deleteLink);
     const deleteLink = deleteLinks[rowIndex];
     await deleteLink.click();
-    await this.waitForResponse('post', DELETE_ITEM);
+    await this.waitForResponse(POST, DELETE_ITEM);
     await this.page.waitForTimeout(5000);
   }
 

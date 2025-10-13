@@ -1,7 +1,8 @@
-import { SIGNUP, LOGIN } from '../support/constants/Endpoints';
 import { b64EncodeUnicode } from '../support/helpers';
 import { ResponseBody } from '../support/types';
 import BaseRequest from './BaseRequest';
+import { SIGNUP, LOGIN } from '../support/constants/endpoint';
+import { POST } from '../support/constants/methods';
 
 export default class Authorization extends BaseRequest {
   async signupUser(username: string, password: string): Promise<ResponseBody> {
@@ -9,7 +10,7 @@ export default class Authorization extends BaseRequest {
       username,
       password: b64EncodeUnicode(password),
     });
-    return this.makeRequest('post', SIGNUP, config);
+    return this.makeRequest(POST, SIGNUP, config);
   }
 
   async loginUser(username: string, password: string): Promise<ResponseBody> {
@@ -17,6 +18,6 @@ export default class Authorization extends BaseRequest {
       username,
       password: b64EncodeUnicode(password),
     });
-    return this.makeRequest('post', LOGIN, config);
+    return this.makeRequest(POST, LOGIN, config);
   }
 }

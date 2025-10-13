@@ -21,11 +21,14 @@ export default [
     },
     rules: {
       // TypeScript specific rules - lighter enforcement
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
       '@typescript-eslint/no-explicit-any': 'off', // Allow any type
       '@typescript-eslint/prefer-const': 'warn',
       '@typescript-eslint/no-var-requires': 'warn',
-      
+
       // General JavaScript/TypeScript rules - reduced strictness
       'no-console': 'off', // Allow console logs
       'no-debugger': 'warn', // Just warn about debugger
@@ -33,19 +36,19 @@ export default [
       'no-unused-expressions': 'off', // Turn off to avoid issues with expect chains
       'prefer-template': 'off', // Allow string concatenation
       'quote-props': 'off', // Don't enforce quote props
-      
+
       // Code style - turn off most style rules (Prettier handles this)
-      'eqeqeq': 'off', // Allow == and ===
-      'curly': 'off', // Allow single line if statements
+      eqeqeq: 'off', // Allow == and ===
+      curly: 'off', // Allow single line if statements
       'brace-style': 'off', // Let Prettier handle this
-      
+
       // Best practices - only warn for serious issues
       'no-eval': 'error', // Keep this as error for security
       'no-implied-eval': 'warn',
       'no-new-func': 'warn',
       'no-return-await': 'off', // Allow return await
       'require-await': 'off', // Don't require await in async functions
-      
+
       // Turn off other common problematic rules
       'no-undef': 'off', // TypeScript handles this
       'no-redeclare': 'off', // TypeScript handles this

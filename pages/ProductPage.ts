@@ -1,4 +1,5 @@
-import { ADD_TO_CART } from '../support/constants/Endpoints';
+import { ADD_TO_CART } from '../support/constants/endpoint';
+import { POST } from '../support/constants/methods';
 import BasePage from './BasePage';
 
 export default class ProductPage extends BasePage {
@@ -9,7 +10,7 @@ export default class ProductPage extends BasePage {
 
   async addToCart(): Promise<void> {
     await this.clickElement(this.addToCartButton);
-    await this.waitForResponse('post', ADD_TO_CART);
+    await this.waitForResponse(POST, ADD_TO_CART);
   }
 
   async verifyProductDetails(

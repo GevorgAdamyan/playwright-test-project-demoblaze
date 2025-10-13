@@ -7,3 +7,4 @@ export const BY_CATEGORY: string = '/bycat';
 export const DELETE_ITEM: string = '/deleteitem';
 export const ENTRIES: string = '/entries';
 export const DELETE_CART: string = '/deletecart';
+export const CHECK: string = '/check';

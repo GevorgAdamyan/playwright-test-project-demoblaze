@@ -1,3 +1,11 @@
+import {
+  CITY,
+  COUNTRY,
+  CARD,
+  MONTH,
+  NAME,
+  YEAR,
+} from '../support/constants/variables';
 import { asyncForEach } from '../support/helpers';
 import BasePage from './BasePage';
 
@@ -17,15 +25,15 @@ export default class OrderModal extends BasePage {
   async verifyPlaceOrderModal(): Promise<void> {
     const selectors: string[] = [
       this.orderModal,
-      this.modalInput('name'),
-      this.modalInput('country'),
-      this.modalInput('city'),
-      this.modalInput('card'),
-      this.modalInput('month'),
-      this.modalInput('year'),
+      this.modalInput(NAME),
+      this.modalInput(COUNTRY),
+      this.modalInput(CITY),
+      this.modalInput(CARD),
+      this.modalInput(MONTH),
+      this.modalInput(YEAR),
       this.purchaseButton,
     ];
-    await asyncForEach(selectors, async (selector) => {
+    await asyncForEach(selectors, async selector => {
       await this.verifyElementIsVisible(selector);
     });
   }

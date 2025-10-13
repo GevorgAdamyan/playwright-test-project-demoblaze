@@ -8,42 +8,42 @@ jobs:
     name: Run UI Tests
     timeout-minutes: 45
     runs-on: ubuntu-latest
-    
+
     env:
       # Environment variables for the tests
       BASE_URL: https://demoblaze.com
       BASE_URL_API: https://api.demoblaze.com
       CI: true
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
           cache: 'npm'
-      
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
-      
+
       - name: Create environment file
         run: |
           echo "BASE_URL=${{ env.BASE_URL }}" >> .env
           echo "BASE_URL_API=${{ env.BASE_URL_API }}" >> .env
           echo "USERNAME=${{ secrets.USERNAME }}" >> .env
           echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
-      
+
       - name: Create auth directory
         run: mkdir -p .auth
-      
+
       - name: Run UI tests
         run: npx playwright test tests/UI --reporter=html,github
-        
+
       - name: Upload UI test results
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -51,7 +51,7 @@ jobs:
           name: ui-test-report-${{ github.run_number }}
           path: playwright-report/
           retention-days: 30
-      
+
       - name: Upload test artifacts
         uses: actions/upload-artifact@v4
         if: failure()
@@ -59,7 +59,7 @@ jobs:
           name: ui-test-results-${{ github.run_number }}
           path: test-results/
           retention-days: 7
-      
+
       - name: Publish UI test results summary
         if: always()
         run: |

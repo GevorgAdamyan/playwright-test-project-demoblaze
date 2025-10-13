@@ -58,7 +58,7 @@ export default abstract class BaseRequest {
       },
     };
     const token = cookies.cookies.find(
-      (cookie) => cookie.name === 'tokenp_',
+      cookie => cookie.name === 'tokenp_',
     )?.value;
     if (body) {
       configuration['data'] = body;

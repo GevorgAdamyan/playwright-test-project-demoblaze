@@ -3,7 +3,9 @@ import Products from '../api/Products';
 import { asyncForEach } from '../support/helpers';
 import { ResponseBody } from '../support/types';
 import BasePage from './BasePage';
-import { VIEW_CART, VIEW, BY_CATEGORY } from '../support/constants/Endpoints';
+import { VIEW_CART, VIEW, BY_CATEGORY } from '../support/constants/endpoint';
+import { POST } from '../support/constants/methods';
+import { MONITOR, NOTEBOOK, PHONE } from '../support/constants/variables';
 
 const products = new Products();
 
@@ -25,8 +27,8 @@ export default class MainPage extends BasePage {
 
   async openCartPage(): Promise<any> {
     await this.clickElement(this.cartLink);
-    const itemsRes = await this.waitForResponse('post', VIEW_CART);
-    await this.waitForResponse('post', VIEW);
+    const itemsRes = await this.waitForResponse(POST, VIEW_CART);
+    await this.waitForResponse(POST, VIEW);
     return itemsRes.json();
   }
 
@@ -36,14 +38,14 @@ export default class MainPage extends BasePage {
     const item = items.find((item: any) => item.title === name);
     if (item) {
       await this.clickElement(this.item(item.id));
-      const itemRes: any = await this.waitForResponse('post', VIEW);
+      const itemRes: any = await this.waitForResponse(POST, VIEW);
       return itemRes.json();
     }
   }
 
   async filterByCategory(name: string): Promise<{ [key: string]: any }[]> {
     await this.clickElement(this.category(name));
-    const response: any = await this.waitForResponse('post', BY_CATEGORY);
+    const response: any = await this.waitForResponse(POST, BY_CATEGORY);
     return response.json();
   }
 
@@ -59,14 +61,14 @@ export default class MainPage extends BasePage {
       this.userNameDisplay,
       this.logOut,
     ];
-    await asyncForEach(tabs, async (tab) => {
+    await asyncForEach(tabs, async tab => {
       await this.verifyElementIsVisible(tab);
     });
   }
 
   async verifyCategories(): Promise<void> {
-    const categories = ['Phone', 'Notebook', 'Monitor'];
-    await asyncForEach(categories, async (category) => {
+    const categories = [PHONE, NOTEBOOK, MONITOR];
+    await asyncForEach(categories, async category => {
       await this.verifyElementIsVisible(this.category(category));
     });
   }
@@ -84,7 +86,7 @@ export default class MainPage extends BasePage {
     items: { [key: string]: any }[],
     category: string,
   ): void {
-    items.forEach((item) => {
+    items.forEach(item => {
       expect(item.cat.toLowerCase()).toBe(category.toLowerCase());
     });
   }

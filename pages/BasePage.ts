@@ -39,7 +39,7 @@ export default abstract class BasePage {
   ): Promise<any> {
     console.log(`Waiting for ${method} ${path} request to complete`);
     const response = await this.page.waitForResponse(
-      (resp) =>
+      resp =>
         resp.url().includes(path) &&
         resp.request().method().toLowerCase() === method.toLowerCase(),
       { timeout },
@@ -128,7 +128,7 @@ export default abstract class BasePage {
    * @param accept - Whether to accept (true) or dismiss (false) the dialog (default: true)
    */
   handleAlert(expectedText: string, accept = true): void {
-    this.page.on('dialog', async (dialog) => {
+    this.page.on('dialog', async dialog => {
       console.log(`Handling alert with text: ${dialog.message()}`);
       expect(dialog.message()).toBe(expectedText);
       if (accept) {

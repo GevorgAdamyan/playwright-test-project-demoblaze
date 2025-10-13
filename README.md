@@ -1,6 +1,8 @@
 # Playwright Test Project - DemoBlaze
 
-A comprehensive end-to-end testing framework built with Playwright for the DemoBlaze e-commerce application. This project demonstrates best practices in test automation including Page Object Model, API testing, authentication handling, and parallel test execution.
+A comprehensive end-to-end testing framework built with Playwright for the DemoBlaze e-commerce
+application. This project demonstrates best practices in test automation including Page Object
+Model, API testing, authentication handling, and parallel test execution.
 
 ## 🚀 Features
 
@@ -65,28 +67,33 @@ playwright-test-project-demoblaze/
 ## 🛠️ Installation
 
 ### Prerequisites
+
 - Node.js (v14 or higher)
 - npm or yarn package manager
 
 ### Setup
+
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    cd playwright-test-project-demoblaze
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Install Playwright browsers:
+
    ```bash
    npx playwright install
    ```
 
-4. Set up environment variables:
-   Create a `.env` file in the root directory with the following variables:
+4. Set up environment variables: Create a `.env` file in the root directory with the following
+   variables:
    ```env
    BASE_URL=https://demoblaze.com
    BASE_URL_API=https://api.demoblaze.com
@@ -99,31 +106,37 @@ playwright-test-project-demoblaze/
 ### Local Test Execution
 
 #### All Tests
+
 ```bash
 npm test
 ```
 
 #### UI Tests Only
+
 ```bash
 npm run test:ui
 ```
 
 #### API Tests Only
+
 ```bash
 npm run test:api
 ```
 
 #### Interactive Mode (Test Explorer)
+
 ```bash
 npm run test:headed
 ```
 
 #### Debug Mode
+
 ```bash
 npx playwright test --debug
 ```
 
 #### Specific Test File
+
 ```bash
 npx playwright test tests/UI/main-page.spec.ts
 ```
@@ -142,6 +155,7 @@ All test workflows require manual triggering via GitHub Actions:
 ### Code Quality Checks (Automatic)
 
 Code quality checks run automatically on every push and pull request:
+
 - ✅ **Prettier**: Code formatting validation
 - ✅ **ESLint**: Linting with relaxed rules (up to 50 warnings allowed)
 - ✅ **TypeScript**: Basic type checking
@@ -149,6 +163,7 @@ Code quality checks run automatically on every push and pull request:
 - ✅ **Security**: Vulnerability audit
 
 #### Manual Code Quality Commands
+
 ```bash
 npm run format        # Fix formatting issues
 npm run format:check  # Check formatting without fixing
@@ -162,11 +177,13 @@ npm run quality:fix   # Fix formatting and linting issues
 ## 📊 Test Reports
 
 After test execution, view the HTML report:
+
 ```bash
 npx playwright show-report
 ```
 
 The report includes:
+
 - Test execution summary
 - Screenshots of failures
 - Video recordings (if configured)
@@ -176,6 +193,7 @@ The report includes:
 ## 🏗️ Architecture
 
 ### Page Object Model
+
 The project uses the Page Object Model pattern to encapsulate page-specific logic:
 
 - **BasePage**: Common functionality shared across all pages
@@ -183,6 +201,7 @@ The project uses the Page Object Model pattern to encapsulate page-specific logi
 - **Modular Design**: Each page handles its own elements and actions
 
 ### API Testing Framework
+
 API tests are structured with:
 
 - **BaseRequest**: Common HTTP request handling
@@ -191,6 +210,7 @@ API tests are structured with:
 - **Authentication**: Token-based authentication handling
 
 ### Authentication Strategy
+
 The project implements a global authentication setup:
 
 1. **Global Setup**: Runs once before all tests
@@ -199,6 +219,7 @@ The project implements a global authentication setup:
 4. **Performance**: Eliminates repeated login operations
 
 ### Code Quality Framework
+
 Automated code quality checks ensure consistent code standards:
 
 - **ESLint Configuration**: Relaxed rules prioritizing development velocity
@@ -210,6 +231,7 @@ Automated code quality checks ensure consistent code standards:
 ## 🔧 Configuration
 
 ### Playwright Configuration (`playwright.config.ts`)
+
 - **Parallel Execution**: Tests run in parallel for faster execution
 - **Browser Support**: Configured for Chromium (Firefox/WebKit available)
 - **Retry Logic**: Automatic retries on CI environments
@@ -217,18 +239,21 @@ Automated code quality checks ensure consistent code standards:
 - **Trace Collection**: Debugging traces on test failures
 
 ### Test Organization
+
 - **API Tests**: Located in `tests/API/`
 - **UI Tests**: Located in `tests/UI/`
 - **Setup Tests**: Authentication and global setup
 - **Naming Convention**: `*.spec.ts` for test files
 
 ### GitHub Actions Workflows
+
 - **code-quality.yml**: Automatic code quality checks (runs on push/PR)
 - **playwright.yml**: Manual all tests execution
 - **playwright-api.yml**: Manual API tests only
 - **playwright-ui.yml**: Manual UI tests only
 
 ### Code Quality Configuration
+
 - **eslint.config.js**: Relaxed ESLint rules for development velocity
 - **.prettierrc**: Consistent formatting rules across the project
 - **tsconfig.json**: TypeScript configuration with relaxed strictness
@@ -237,6 +262,7 @@ Automated code quality checks ensure consistent code standards:
 ## 🚦 Best Practices
 
 ### Test Writing
+
 - Use Page Object Model for UI interactions
 - Implement proper wait strategies
 - Add meaningful assertions
@@ -244,6 +270,7 @@ Automated code quality checks ensure consistent code standards:
 - Group related tests in describe blocks
 
 ### Maintenance
+
 - Keep page objects updated with UI changes
 - Maintain API contracts in separate classes
 - Use environment variables for configuration
@@ -251,6 +278,7 @@ Automated code quality checks ensure consistent code standards:
 - Add logging for debugging
 
 ### Performance
+
 - Leverage parallel execution
 - Reuse authentication state
 - Minimize unnecessary waits
@@ -258,6 +286,7 @@ Automated code quality checks ensure consistent code standards:
 - Cache frequently used elements
 
 ### Code Quality
+
 - Run `npm run quality` before committing code
 - Fix formatting issues with `npm run format`
 - Address linting warnings gradually (up to 50 warnings allowed)
@@ -267,6 +296,7 @@ Automated code quality checks ensure consistent code standards:
 ## 🐛 Debugging
 
 ### Common Commands
+
 ```bash
 # Run with browser visible
 npx playwright test --headed
@@ -282,6 +312,7 @@ npx playwright show-trace trace.zip
 ```
 
 ### Troubleshooting
+
 1. **Authentication Issues**: Check `.env` file and credentials
 2. **Element Not Found**: Verify selectors in page objects
 3. **Timeouts**: Increase timeout values or improve wait strategies
@@ -303,7 +334,9 @@ npx playwright show-trace trace.zip
 9. Submit a pull request (code quality checks will run automatically)
 
 ### GitHub Actions Setup
+
 If you're setting up workflows, ensure these repository secrets are configured:
+
 - `TEST_USERNAME`: Valid test account username
 - `TEST_PASSWORD`: Corresponding test account password
 
@@ -321,6 +354,7 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 ## 📧 Support
 
 For questions or issues, please:
+
 1. Check the existing documentation
 2. Search through existing issues
 3. Create a new issue with detailed information

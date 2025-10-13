@@ -7,6 +7,8 @@ import OrderModal from '../../pages/OrderModal';
 import Cart from '../../api/Cart';
 import test from '@playwright/test';
 import { asyncForEach } from '../../support/helpers';
+import { CHECK } from '../../support/constants/endpoint';
+import { POST } from '../../support/constants/methods';
 dotenv.config();
 
 let browser: Browser;
@@ -43,7 +45,7 @@ test.describe('Cart page', () => {
 
   test.beforeEach(async () => {
     await mainPage.navigateTo('/');
-    await mainPage.waitForResponse('post', '/check');
+    await mainPage.waitForResponse(POST, CHECK);
     await mainPage.verifyLoggedInUser(username);
     response = await mainPage.openCartPage();
     itemsInCart = response.Items;

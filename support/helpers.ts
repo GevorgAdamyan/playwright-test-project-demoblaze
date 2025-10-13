@@ -1,5 +1,3 @@
-import { ResponseBody } from './types';
-
 export const b64EncodeUnicode = (str: string): string => {
   return btoa(
     encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
@@ -15,10 +13,6 @@ export const generateId = () => {
       .substring(1);
   };
   return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4()}${s4()}${s4()}`;
-};
-
-export const getToken = (authResponse: ResponseBody): string => {
-  return authResponse.body.split(' ')[1] || '';
 };
 
 export const asyncForEach = async <T>(

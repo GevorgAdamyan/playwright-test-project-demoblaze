@@ -4,6 +4,9 @@ import MainPage from '../../pages/MainPage';
 import ProductPage from '../../pages/ProductPage';
 import Products from '../../api/Products';
 import test from '@playwright/test';
+import { CHECK } from '../../support/constants/endpoint';
+import { POST } from '../../support/constants/methods';
+import { MONITOR, NOTEBOOK, PHONE } from '../../support/constants/variables';
 dotenv.config();
 
 let browser: Browser;
@@ -14,7 +17,7 @@ let mainPage: MainPage;
 let productPage: ProductPage;
 let response: any;
 
-const categories = ['Phone', 'Notebook', 'Monitor'];
+const categories = [PHONE, NOTEBOOK, MONITOR];
 
 const products = new Products();
 let product: any;
@@ -32,7 +35,7 @@ test.describe('Main Page', () => {
 
   test.beforeEach(async () => {
     await mainPage.navigateTo('/');
-    await mainPage.waitForResponse('post', '/check');
+    await mainPage.waitForResponse(POST, CHECK);
     await mainPage.verifyLoggedInUser(username);
   });
 
