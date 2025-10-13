@@ -1,0 +1,25 @@
+{
+  "name": "playwright-test-project-demoblaze",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --write .",
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --ui",
+    "test:ui": "npx playwright test tests/UI",
+    "test:api": "npx playwright test tests/api"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^24.7.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "prettier": "^3.6.2"
+  }
+}
