@@ -6,7 +6,7 @@ import Products from '../../api/Products';
 import OrderModal from '../../pages/OrderModal';
 import Cart from '../../api/Cart';
 import test from '@playwright/test';
-import { asyncForEach } from '../../support/Helpers';
+import { asyncForEach } from '../../support/helpers';
 dotenv.config();
 
 let browser: Browser;

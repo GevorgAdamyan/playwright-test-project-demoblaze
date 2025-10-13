@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import Products from '../../api/Products';
 import Cart from '../../api/Cart';
 import test, { expect } from '@playwright/test';
-import { asyncForEach } from '../../support/Helpers';
+import { asyncForEach } from '../../support/helpers';
 dotenv.config();
 
 const products = new Products();

@@ -7,7 +7,7 @@ import OrderModal from '../../pages/OrderModal';
 import SuccessModal from '../../pages/SuccessModal';
 import Cart from '../../api/Cart';
 import test from '@playwright/test';
-import { asyncForEach, getCurrentDateWithSlash } from '../../support/Helpers';
+import { asyncForEach, getCurrentDateWithSlash } from '../../support/helpers';
 import { DELETE_CART } from '../../support/constants/Endpoints';
 dotenv.config();
 

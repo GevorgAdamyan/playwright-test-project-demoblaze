@@ -1,4 +1,4 @@
-import { asyncForEach } from '../support/Helpers';
+import { asyncForEach } from '../support/helpers';
 import BasePage from './BasePage';
 
 export default class OrderModal extends BasePage {

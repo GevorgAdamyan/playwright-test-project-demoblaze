@@ -1,5 +1,5 @@
 import { ENTRIES, VIEW, ADD_TO_CART, BY_CATEGORY } from '../support/constants/Endpoints';
-import { generateId } from '../support/Helpers';
+import { generateId } from '../support/helpers';
 import { ResponseBody } from '../support/types';
 import BaseRequest from './BaseRequest';
 

@@ -1,5 +1,5 @@
 import { SIGNUP, LOGIN } from '../support/constants/Endpoints';
-import { b64EncodeUnicode } from '../support/Helpers';
+import { b64EncodeUnicode } from '../support/helpers';
 import { ResponseBody } from '../support/types';
 import BaseRequest from './BaseRequest';
 

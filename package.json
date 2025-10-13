@@ -4,10 +4,16 @@
   "main": "index.js",
   "scripts": {
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix",
+    "type-check": "tsc --noEmit",
+    "quality": "npm run format:check && npm run lint && npm run type-check",
+    "quality:fix": "npm run format && npm run lint:fix",
     "test": "npx playwright test",
     "test:headed": "npx playwright test --ui",
     "test:ui": "npx playwright test tests/UI",
-    "test:api": "npx playwright test tests/api"
+    "test:api": "npx playwright test tests/API"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +22,14 @@
   "devDependencies": {
     "@playwright/test": "^1.56.0",
     "@types/dotenv": "^6.1.1",
-    "@types/node": "^24.7.2"
+    "@types/node": "^24.7.2",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.0",
+    "eslint": "^9.11.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-playwright": "^1.6.2",
+    "typescript": "^5.6.2",
+    "depcheck": "^1.4.7"
   },
   "dependencies": {
     "dotenv": "^17.2.3",

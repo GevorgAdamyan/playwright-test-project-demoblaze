@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import Products from '../api/Products';
-import { asyncForEach } from '../support/Helpers';
+import { asyncForEach } from '../support/helpers';
 import { ResponseBody } from '../support/types';
 import BasePage from './BasePage';
 import { VIEW_CART, VIEW, BY_CATEGORY } from '../support/constants/Endpoints';
