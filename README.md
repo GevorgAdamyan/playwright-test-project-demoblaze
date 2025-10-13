@@ -76,7 +76,7 @@ playwright-test-project-demoblaze/
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/GevorgAdamyan/playwright-test-project-demoblaze.git
    cd playwright-test-project-demoblaze
    ```
 
