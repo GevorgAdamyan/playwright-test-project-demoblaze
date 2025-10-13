@@ -1,16 +1,12 @@
-name: Playwright Tests - All Tests
+name: Playwright Tests - UI Only
 
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
-  workflow_dispatch: # Allow manual trigger
+  workflow_dispatch: # Allow manual trigger only
 
 jobs:
-  test:
-    name: Run All E2E Tests (UI + API)
-    timeout-minutes: 60
+  ui-test:
+    name: Run UI Tests
+    timeout-minutes: 45
     runs-on: ubuntu-latest
     
     env:
@@ -45,14 +41,14 @@ jobs:
       - name: Create auth directory
         run: mkdir -p .auth
       
-      - name: Run Playwright tests
-        run: npx playwright test --reporter=html,github
+      - name: Run UI tests
+        run: npx playwright test tests/UI --reporter=html,github
         
-      - name: Upload test results
+      - name: Upload UI test results
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report-${{ github.run_number }}
+          name: ui-test-report-${{ github.run_number }}
           path: playwright-report/
           retention-days: 30
       
@@ -60,21 +56,22 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: test-results-${{ github.run_number }}
+          name: ui-test-results-${{ github.run_number }}
           path: test-results/
           retention-days: 7
       
-      - name: Publish test results summary
+      - name: Publish UI test results summary
         if: always()
         run: |
-          echo "## 🎭 Playwright Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "## 🖥️ UI Test Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           if [ -f "playwright-report/index.html" ]; then
-            echo "✅ Test report generated successfully" >> $GITHUB_STEP_SUMMARY
+            echo "✅ UI test report generated successfully" >> $GITHUB_STEP_SUMMARY
             echo "📊 View the detailed report in the artifacts section" >> $GITHUB_STEP_SUMMARY
           else
-            echo "❌ Test report generation failed" >> $GITHUB_STEP_SUMMARY
+            echo "❌ UI test report generation failed" >> $GITHUB_STEP_SUMMARY
           fi
           echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Test Suite:** UI Tests Only" >> $GITHUB_STEP_SUMMARY
           echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY

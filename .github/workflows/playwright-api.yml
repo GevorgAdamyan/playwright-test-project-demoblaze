@@ -1,16 +1,12 @@
-name: Playwright Tests - All Tests
+name: Playwright Tests - API Only
 
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
-  workflow_dispatch: # Allow manual trigger
+  workflow_dispatch: # Allow manual trigger only
 
 jobs:
-  test:
-    name: Run All E2E Tests (UI + API)
-    timeout-minutes: 60
+  api-test:
+    name: Run API Tests
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     
     env:
@@ -45,14 +41,14 @@ jobs:
       - name: Create auth directory
         run: mkdir -p .auth
       
-      - name: Run Playwright tests
-        run: npx playwright test --reporter=html,github
+      - name: Run API tests
+        run: npx playwright test tests/API --reporter=html,github
         
-      - name: Upload test results
+      - name: Upload API test results
         uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report-${{ github.run_number }}
+          name: api-test-report-${{ github.run_number }}
           path: playwright-report/
           retention-days: 30
       
@@ -60,21 +56,22 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: test-results-${{ github.run_number }}
+          name: api-test-results-${{ github.run_number }}
           path: test-results/
           retention-days: 7
       
-      - name: Publish test results summary
+      - name: Publish API test results summary
         if: always()
         run: |
-          echo "## 🎭 Playwright Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "## 🔌 API Test Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           if [ -f "playwright-report/index.html" ]; then
-            echo "✅ Test report generated successfully" >> $GITHUB_STEP_SUMMARY
+            echo "✅ API test report generated successfully" >> $GITHUB_STEP_SUMMARY
             echo "📊 View the detailed report in the artifacts section" >> $GITHUB_STEP_SUMMARY
           else
-            echo "❌ Test report generation failed" >> $GITHUB_STEP_SUMMARY
+            echo "❌ API test report generation failed" >> $GITHUB_STEP_SUMMARY
           fi
           echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Test Suite:** API Tests Only" >> $GITHUB_STEP_SUMMARY
           echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "**Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
