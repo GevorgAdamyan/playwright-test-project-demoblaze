@@ -3,7 +3,7 @@ import { POST } from '../support/constants/methods';
 import { ResponseBody } from '../support/types';
 import BaseRequest from './BaseRequest';
 
-export default class CartPage extends BaseRequest {
+export default class Cart extends BaseRequest {
   async getItemsInCart(flag: boolean): Promise<ResponseBody> {
     const config = this.config({ flag });
     return this.makeRequest(POST, VIEW_CART, config);

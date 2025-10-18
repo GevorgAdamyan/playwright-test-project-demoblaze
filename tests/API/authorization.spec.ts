@@ -26,35 +26,35 @@ test.describe('Authorization', () => {
     expect(response.statusCode).toBe(200);
   });
 
-  test('Login user', async () => {
+  test('should login with valid credentials', async () => {
     response = await authorization.loginUser(username, password);
     expect(response.statusCode).toBe(200);
     expect(typeof response.body).toBe(STRING);
   });
 
-  test('Login user with wrong credentials', async () => {
+  test('should not login with wrong credentials', async () => {
     response = await authorization.loginUser(WRONG_USERNAME, WRONG_PASSWORD);
     expect(response.statusCode).toBe(200);
     expect(response.body.errorMessage).toEqual(WRONG_PASSWORD_MESSAGE);
   });
 
-  test('Signup user with existing username', async () => {
+  test('should not signup user with existing username', async () => {
     response = await authorization.signupUser(username, password);
     expect(response.statusCode).toBe(200);
     expect(response.body.errorMessage).toEqual(USER_ALREADY_EXISTS_MESSAGE);
   });
 
-  test('Signup user with empty username', async () => {
+  test('should not signup user with empty username', async () => {
     response = await authorization.signupUser('', password);
     expect(response.statusCode).toBe(500);
   });
 
-  test('Login user with empty username', async () => {
+  test('should not login user with empty username', async () => {
     response = await authorization.loginUser('', password);
     expect(response.statusCode).toBe(500);
   });
 
-  test('Login user with empty password', async () => {
+  test('should not login user with empty password', async () => {
     response = await authorization.loginUser(username, '');
     expect(response.statusCode).toBe(200);
     expect(response.body.errorMessage).toEqual(WRONG_PASSWORD_MESSAGE);
