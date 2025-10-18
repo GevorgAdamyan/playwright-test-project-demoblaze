@@ -82,7 +82,7 @@ test.describe('Place Order', () => {
   });
 
 
-  test('should place order with valid fields (failing due to a bug in the application)', async () => {
+  test('should place order with valid fields', async () => {
     await orderModal.insertTextInModal(NAME, CUSTOMER_NAME);
     await orderModal.insertTextInModal(COUNTRY, CUSTOMER_COUNTRY);
     await orderModal.insertTextInModal(CITY, CUSTOMER_CITY);
